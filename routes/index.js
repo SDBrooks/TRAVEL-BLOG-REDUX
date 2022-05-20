@@ -5,7 +5,7 @@ router.get('/', (req, res) => res.send('This is root!'))
 router.get('/locations', controllers.getLocation)
 router.get('/locations/:id', controllers.getLocationById)
 router.get('/comments', controllers.getComments)
-router.post('/createcomment', controllers.createComment)
+router.post('/createcomment/:id', controllers.createComment)
 router.put('/updatecomment/:id', controllers.updateComment)
 router.delete('/comment/:id', controllers.deleteComment)
 module.exports = router

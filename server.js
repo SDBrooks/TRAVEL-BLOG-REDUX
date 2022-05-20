@@ -5,7 +5,7 @@ const db = require('./db')
 // require() imports and middleware here ^ ///////
 const PORT = process.env.PORT || 3001
 const app = express()
-// app.use() middleware here ^ ///////////////////
+app.use(express.json())
 app.use(cors())
 app.use('/api', routes)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))

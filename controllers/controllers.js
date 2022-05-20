@@ -13,7 +13,7 @@ const getLocation = async (req, res) => {
 const getLocationById = async (req, res) => {
   try {
     const { id } = req.params
-    const location = await Location.findById(id)
+    const location = await Location.findById(id).populate("locationComments")
     return res.status(200).json({ location })
   } catch (error) {
     return res.status(500).send(error.message)
@@ -42,8 +42,16 @@ const deleteComment = async (req, res) => {
 
 const createComment = async (req, res) => {
   try {
+    const { id } = req.params
+    console.log(req.body)
+    const location = await Location.findOne({ _id: id })
+    // console.log(location)
     const comment = await new Comment(req.body)
+    console.log(comment)
+    location.locationComments.push(comment._id)
     await comment.save()
+    await location.save()
+    return res.json(location)
   } catch (error) {
     return res.status(500).send(error.message)
   }
